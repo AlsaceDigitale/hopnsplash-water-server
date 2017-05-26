@@ -6,14 +6,14 @@ var port = new SerialPort("/dev/ttyACM0", {
   baudrate: 9600
 });
 
-app.get('/1', function (req, res) {
-  port.write('p:1\r\n');
-  console.log("mouille 1");
-})
-
-app.get('/2', function (req, res) {
-  port.write('p:2\r\n');
-  console.log("mouille 2");
+app.get('/:team', function (req, res) {
+  var team = req.params.team;
+  console.log("h");
+  if(team == "1" || team == "2") {
+    port.write("p:"+team+"\r\n");
+    console.log("mouille" + team);
+    res.send("mouille" + team);
+  }
 })
 
 app.listen(3000, function () {
